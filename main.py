@@ -26,6 +26,9 @@ def main() -> None:
     # No trailing newline: the gate requires exactly 1 character.
     with open("/output/entry.txt", "w", encoding="utf-8", newline="") as f:
         f.write(text)
+    # Round-trip check: the file must be exactly the one byte, no newline.
+    with open("/output/entry.txt", "rb") as f:
+        assert f.read() == text.encode("ascii"), "entry.txt is not exactly one byte"
 
 
 if __name__ == "__main__":
